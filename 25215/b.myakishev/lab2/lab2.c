@@ -3,12 +3,14 @@
 #include <time.h>
 #include <stdlib.h>
 
+extern char *tzname[];
+
 int main(void)
 {
     time_t now;
     struct tm *sp;
 
-    putenv("TZ=PST8");
+    setenv("TZ", "PST8", 1);
     tzset();
 
     (void) time(&now);
@@ -21,7 +23,7 @@ int main(void)
         sp->tm_year + 1900,
         sp->tm_hour,
         sp->tm_min,
-        _tzname[sp->tm_isdst]);
+        tzname[sp->tm_isdst]);
 
     return 0;
 }
